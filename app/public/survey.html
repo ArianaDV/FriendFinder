@@ -5,7 +5,6 @@
     <meta charset="UTF-8">
     <title>Survey</title>
     <!-- Latest compiled and minified CSS & JS -->
-    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
     <script src="https://code.jquery.com/jquery.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -19,9 +18,9 @@
             <hr>
             <h3>About You</h3>
             Name (required)
-            <input type="text"><br><br>
+            <input id="name" type="text"><br><br>
             Link to Photo Image (required)
-            <input type="text">
+            <input id = "picture" type="text">
             <hr>
         </div>
         <div class="row">
@@ -146,32 +145,31 @@
                 </select>
                 <br>
                 <br>
-                <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">Find me some friends!</button>
+                <button id= submit type="button" class="btn btn-danger btn-lg">
+                    <span class="glyphicon glyphicon-plus"></span> Find me some friends!</button>
             </div>
         </div>
-    </div>
+     </div>
+     <hr>
+        <footer class="footer">
+            <p>
+                <a href="/api/friends">API Friends List</a> |
+                <a href="https://github.com/ArianaDV/FriendFinder">GitHub Repo</a>
+            </p>
+        </footer>
 
     <script type="text/javascript">
-        $("#search-btn").on("click", function () {
-            var searchedCharacter = $("#character-search").val().trim();
+       $("#submit").on("click", function (event) {
+            // event.preventDefault();
+            var newFriend = {
+                name: $("#name").val().trim(),
+                picture: $("#picture").val().trim(),
+                scores: [],
+            };
 
-            // Using a RegEx Pattern to remove spaces from searchedCharacter
-            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
-            searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
-
-            $.get("/api/" + searchedCharacter, function (data) {
-                console.log(data);
-                if (data) {
-                    $("#stats").show();
-                    $("#name").text(data.name);
-                    $("#role").text(data.role);
-                    $("#age").text(data.age);
-                    $("#force-points").text(data.forcePoints);
-                }
-                else {
-                    $("#name").text("The force is not strong with this one. Your character was not found.");
-                    $("#stats").hide();
-                }
+            $.post("/api/friends", newFriend)
+                .then(function (data) {
+                    console.log(data);
             });
         });
     </script>

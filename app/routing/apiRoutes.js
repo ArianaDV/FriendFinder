@@ -1,3 +1,4 @@
+module.exports = function (app) {
 app.get("/api/friends", function (req, res) {
     var friends = req.params.friends;
 
@@ -5,8 +6,8 @@ app.get("/api/friends", function (req, res) {
         console.log(friends);
 
         for (var i = 0; i < friends.length; i++) {
-            if (friends === friends[i].routeName) {
-                return res.json(friends[i]);
+            if (friends === friends[i]) {
+                return res.json(friends[i].name);
             }
         }
         return res.json(false);
@@ -29,3 +30,5 @@ app.post("/api/friends", function (req, res) {
 
     res.json(newFriend);
 });
+
+};

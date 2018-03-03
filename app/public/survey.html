@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Survey</title>
+    <!-- Latest compiled and minified CSS & JS -->
+    <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"> -->
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="jumbotron">
+            <h1>A Few Basic Questions...</h1>
+            <hr>
+            <h3>About You</h3>
+            Name (required)
+            <input type="text"><br><br>
+            Link to Photo Image (required)
+            <input type="text">
+            <hr>
+        </div>
+        <div class="row">
+
+            <div class="col-lg-12">
+                <h4>Question 1:</h4>
+                I enjoy being in large groups as opposed to being with just one other person.<br>
+                <select id = "q1" >
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>                    
+                </select>
+                
+                <h4>Question 2:</h4>
+                I live a pretty carefree life.<br>
+                <select id="q2">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 3:</h4>
+                I'm a competitive person and generally enjoy being around competitive people.
+                <br>
+                <select id="q3">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 4:</h4>
+                On a regular weekend, I would rather netflix and chill than rage all night.
+                <br>
+                <select id="q4">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 5:</h4>
+                I make going to the gym a priority in my life.
+                <br>
+                <select id="q5">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 6:</h4>
+                I often enjoy trying new foods.
+                <br>
+                <select id="q6">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 7:</h4>
+                I believe in respecting point of views that differ from my own.
+                <br>
+                <select id="q7">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 8:</h4>
+                I can easily clear my mind and focus on specific tasks under pressure.
+                <br>
+                <select id="q8">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 9:</h4>
+                I consider myself more practical than creative.
+                <br>
+                <select id="q9">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+
+                <h4>Question 10:</h4>
+                SummerTimeChi is the best.
+                <br>
+                <select id="q10">
+                    <option></option>
+                    <option value="1">1 (Strongly Disagree)</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5 (Strongly Agree)</option>
+                </select>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit">Find me some friends!</button>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $("#search-btn").on("click", function () {
+            var searchedCharacter = $("#character-search").val().trim();
+
+            // Using a RegEx Pattern to remove spaces from searchedCharacter
+            // You can read more about RegEx Patterns later https://www.regexbuddy.com/regex.html
+            searchedCharacter = searchedCharacter.replace(/\s+/g, "").toLowerCase();
+
+            $.get("/api/" + searchedCharacter, function (data) {
+                console.log(data);
+                if (data) {
+                    $("#stats").show();
+                    $("#name").text(data.name);
+                    $("#role").text(data.role);
+                    $("#age").text(data.age);
+                    $("#force-points").text(data.forcePoints);
+                }
+                else {
+                    $("#name").text("The force is not strong with this one. Your character was not found.");
+                    $("#stats").hide();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -11,9 +11,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 require(path.join(__dirname, './app/routing/htmlRoutes'))(app);
-require(path.join(__dirname, './app/routing/survey'))(app);
-
-
+require(path.join(__dirname, './app/routing/apiRoutes'))(app);
 
 app.listen(PORT, function () {
     console.log("App listening on PORT " + PORT);
